@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Gift, Sparkles, Calendar, User, Heart, Music, Mic, ImagePlus } from 'lucide-react';
+import { Gift, Sparkles, Calendar, User, Heart, Music, Mic, ImagePlus, ExternalLink } from 'lucide-react';
 import ImageUploader from '../components/ImageUploader';
 import AudioRecorder from '../components/AudioRecorder';
 import MusicSelector from '../components/MusicSelector';
@@ -193,6 +193,24 @@ export default function CreateCard() {
           )}
         </button>
       </main>
+
+      <footer className="create-footer">
+        <div className="footer-left">
+          <h3 className="footer-brand">拾光祝语</h3>
+          <p className="footer-desc">用数字传递最温暖的情感</p>
+        </div>
+        <div className="footer-right">
+          <a
+            href="https://www.xiaohongshu.com/shop/6a08a3f9826d030015cae46f?instation_link=xhsdiscover%3A%2F%2Fshop_detail%3Fseller_id%3D6a08a3f9826d030015cae46f%26general_param%3D%257B%2522source%2522%3A%2522share%2522%257D%26source%3Dshare&page_instance=3957&back_chain_id=shop_homepage_share&share_id=a01ba04082f74e6d905c88f14c9ce7e6&share_channel=wechat"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-contact"
+          >
+            <ExternalLink size={14} />
+            <span>联系我们</span>
+          </a>
+        </div>
+      </footer>
 
       {showQR && <QRCodeModal url={shareUrl} onClose={() => setShowQR(false)} cardData={form} />}
     </div>

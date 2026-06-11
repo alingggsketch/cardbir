@@ -758,6 +758,59 @@ textarea {
   animation: spin 0.8s linear infinite;
 }
 
+/* ===== Create Page Footer ===== */
+.create-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  margin-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: var(--font-display);
+}
+
+.footer-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.footer-right {
+  flex-shrink: 0;
+}
+
+.footer-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.footer-contact:hover {
+  border-color: var(--theme);
+  color: var(--theme);
+  background: rgba(255, 107, 157, 0.06);
+}
+
 /* ===== QR Code Modal ===== */
 .modal-overlay {
   position: fixed;
