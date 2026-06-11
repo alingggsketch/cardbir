@@ -248,6 +248,7 @@ export default function ViewCard() {
 
   // Resolve audio src: supports old base64 string and CDN key object
   const audioData = cardData.audio;
+  console.log('Audio data:', audioData);
   const audioSrc = audioData
     ? typeof audioData === 'string'
       ? audioData
@@ -255,6 +256,7 @@ export default function ViewCard() {
         ? getMediaUrl(audioData.key)
         : null
     : null;
+  console.log('Audio src:', audioSrc);
 
   return (
     <div className="view-page" style={{ '--theme': themeColor }}>
@@ -287,7 +289,10 @@ export default function ViewCard() {
               <span className="title-line">生日快乐!</span>
             </h1>
             <div className="hero-date">
-              {cardData.date}
+              {cardData.date && new Date(cardData.date).toLocaleDateString('zh-CN', {
+                month: 'long',
+                day: 'numeric'
+              })}
             </div>
           </section>
 

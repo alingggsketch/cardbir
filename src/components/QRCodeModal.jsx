@@ -115,7 +115,6 @@ export default function QRCodeModal({ url, onClose, cardData }) {
 
             <div className="card-date">
               {cardData?.date && new Date(cardData.date).toLocaleDateString('zh-CN', {
-                year: 'numeric',
                 month: 'long',
                 day: 'numeric'
               })}
