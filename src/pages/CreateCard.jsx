@@ -44,7 +44,6 @@ export default function CreateCard() {
 
     await new Promise((r) => setTimeout(r, 300));
 
-    console.log('Audio state:', audio);
     const cardData = {
       ...form,
       images: images.map((img) => ({ key: img.key, caption: img.caption })),
@@ -56,7 +55,6 @@ export default function CreateCard() {
           : null,
       createdAt: Date.now(),
     };
-    console.log('Card data audio:', cardData.audio);
 
     const url = getShareUrl(cardData);
     setShareUrl(url);
