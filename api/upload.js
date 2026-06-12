@@ -1,7 +1,7 @@
 export const config = { api: { bodyParser: { sizeLimit: '5mb' } } };
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const REPO = 'Khao-s/cardimg';
+const REPO = 'alingggsketch/cardimg';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');

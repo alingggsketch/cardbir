@@ -1,4 +1,4 @@
-const REPO = 'Khao-s/cardimg';
+const REPO = 'alingggsketch/cardimg';
 const TOKEN_KEY = 'gh_upload_token';
 
 export function getToken() {
@@ -49,5 +49,5 @@ export async function uploadFile(file) {
 
 export function getMediaUrl(key) {
   if (key.startsWith('http')) return key;
-  return `https://cdn.jsdelivr.net/gh/Khao-s/cardimg@main/media/${key}`;
+  return `https://cdn.jsdelivr.net/gh/alingggsketch/cardimg@main/media/${key}`;
 }

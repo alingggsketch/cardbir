@@ -1,4 +1,4 @@
-const REPO = 'Khao-s/cardimg';
+const REPO = 'alingggsketch/cardimg';
 
 export default {
   async fetch(request, env) {
