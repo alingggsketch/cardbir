@@ -1,13 +1,6 @@
 import { useState, useRef } from 'react';
-import { X, ImagePlus, Images, Loader2 } from 'lucide-react';
+import { X, ImagePlus, Loader2 } from 'lucide-react';
 import { uploadFile, getMediaUrl } from '../utils/upload';
-import oneImg from '../assets/one.jpg?url';
-import twoImg from '../assets/two.jpg?url';
-import threeImg from '../assets/three.jpg?url';
-import fourImg from '../assets/four.jpg?url';
-import fiveImg from '../assets/five.jpg?url';
-
-const DEFAULT_IMAGES = [oneImg, twoImg, threeImg, fourImg, fiveImg];
 
 export default function ImageUploader({ images, onChange }) {
   const fileInputRef = useRef(null);
@@ -67,43 +60,6 @@ export default function ImageUploader({ images, onChange }) {
     onChange(images.filter((_, i) => i !== index));
   };
 
-  const loadDefaultImages = async () => {
-    setUploading(true);
-    const newImages = [];
-    for (const url of DEFAULT_IMAGES) {
-      try {
-        const compressed = await compressImageUrl(url);
-        const blob = await fetch(compressed).then((r) => r.blob());
-        const result = await uploadFile(new File([blob], 'default.webp', { type: 'image/webp' }));
-        newImages.push({ key: result.key, caption: '' });
-      } catch (err) {
-        console.error('默认图片上传失败:', err);
-      }
-    }
-    onChange([...images, ...newImages].slice(0, 6));
-    setUploading(false);
-  };
-
-  const compressImageUrl = (url) =>
-    new Promise((resolve) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        let { width, height } = img;
-        const MAX = 400;
-        if (width > MAX) {
-          height = (height * MAX) / width;
-          width = MAX;
-        }
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL('image/webp', 0.3));
-      };
-      img.src = url;
-    });
-
   return (
     <div className="image-uploader">
       <div className="image-grid">
@@ -143,16 +99,6 @@ export default function ImageUploader({ images, onChange }) {
         style={{ display: 'none' }}
       />
       <p className="hint">最多6张，自动压缩至400px宽度（WebP格式）</p>
-      {images.length === 0 && (
-        <button
-          className="btn-default-material"
-          onClick={loadDefaultImages}
-          disabled={uploading}
-        >
-          <Images size={16} />
-          <span>{uploading ? '上传中...' : '使用默认素材'}</span>
-        </button>
-      )}
     </div>
   );
 }

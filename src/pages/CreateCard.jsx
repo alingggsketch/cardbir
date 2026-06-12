@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Gift, Sparkles, Calendar, User, Heart, Music, Mic, ImagePlus, ExternalLink } from 'lucide-react';
+import { Gift, Sparkles, Calendar, User, Heart, Music, Mic, ImagePlus, ExternalLink, Mail, MessageCircle, Star, Shield, Zap } from 'lucide-react';
 import ImageUploader from '../components/ImageUploader';
 import AudioRecorder from '../components/AudioRecorder';
 import MusicSelector from '../components/MusicSelector';
@@ -63,6 +63,7 @@ export default function CreateCard() {
   };
 
   return (
+    <>
     <div className="create-page">
       <header className="create-header">
         <div className="header-icon">
@@ -193,26 +194,89 @@ export default function CreateCard() {
           )}
         </button>
       </main>
-
-      <footer className="create-footer">
-        <div className="footer-left">
-          <h3 className="footer-brand">拾光祝语</h3>
-          <p className="footer-desc">用数字传递最温暖的情感</p>
-        </div>
-        <div className="footer-right">
-          <a
-            href="https://www.xiaohongshu.com/shop/6a08a3f9826d030015cae46f?instation_link=xhsdiscover%3A%2F%2Fshop_detail%3Fseller_id%3D6a08a3f9826d030015cae46f%26general_param%3D%257B%2522source%2522%3A%2522share%2522%257D%26source%3Dshare&page_instance=3957&back_chain_id=shop_homepage_share&share_id=a01ba04082f74e6d905c88f14c9ce7e6&share_channel=wechat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-contact"
-          >
-            <ExternalLink size={14} />
-            <span>联系我们</span>
-          </a>
-        </div>
-      </footer>
-
-      {showQR && <QRCodeModal url={shareUrl} onClose={() => setShowQR(false)} cardData={form} />}
     </div>
+
+    <footer className="site-footer">
+      <div className="footer-wave">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+          <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,20 1440,30 L1440,60 L0,60 Z" fill="currentColor" />
+        </svg>
+      </div>
+
+      <div className="footer-inner">
+        <div className="footer-grid">
+          {/* Brand */}
+          <div className="footer-col footer-brand-col">
+            <div className="footer-logo">
+              <Gift size={24} />
+              <span>拾光祝语</span>
+            </div>
+            <p className="footer-tagline">用数字传递最温暖的情感，让每一份生日祝福都充满心意。</p>
+            <div className="footer-social">
+              <a
+                href="https://www.xiaohongshu.com/shop/6a08a3f9826d030015cae46f?instation_link=xhsdiscover%3A%2F%2Fshop_detail%3Fseller_id%3D6a08a3f9826d030015cae46f%26general_param%3D%257B%2522source%2522%3A%2522share%2522%257D%26source%3Dshare&page_instance=3957&back_chain_id=shop_homepage_share&share_id=a01ba04082f74e6d905c88f14c9ce7e6&share_channel=wechat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon"
+                title="小红书"
+              >
+                <ExternalLink size={16} />
+              </a>
+            </div>
+          </div>
+
+          {/* Features */}
+          <div className="footer-col">
+            <h4 className="footer-heading">功能特色</h4>
+            <ul className="footer-links">
+              <li><Star size={14} /> <span>个性化贺卡定制</span></li>
+              <li><Music size={14} /> <span>语音祝福录制</span></li>
+              <li><ImagePlus size={14} /> <span>照片墙上传</span></li>
+              <li><Heart size={14} /> <span>多种主题配色</span></li>
+            </ul>
+          </div>
+
+          {/* Advantages */}
+          <div className="footer-col">
+            <h4 className="footer-heading">我们的优势</h4>
+            <ul className="footer-links">
+              <li><Zap size={14} /> <span>一键生成分享</span></li>
+              <li><Shield size={14} /> <span>数据安全保障</span></li>
+              <li><MessageCircle size={14} /> <span>永久有效链接</span></li>
+              <li><Sparkles size={14} /> <span>完全免费使用</span></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="footer-col">
+            <h4 className="footer-heading">联系我们</h4>
+            <ul className="footer-links">
+              <li>
+                <Mail size={14} />
+                <a
+                  href="https://www.xiaohongshu.com/shop/6a08a3f9826d030015cae46f?instation_link=xhsdiscover%3A%2F%2Fshop_detail%3Fseller_id%3D6a08a3f9826d030015cae46f%26general_param%3D%257B%2522source%2522%3A%2522share%2522%257D%26source%3Dshare&page_instance=3957&back_chain_id=shop_homepage_share&share_id=a01ba04082f74e6d905c88f14c9ce7e6&share_channel=wechat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  小红书店铺
+                </a>
+              </li>
+              <li>
+                <MessageCircle size={14} />
+                <span>在线客服咨询</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p className="footer-copyright">&copy; {new Date().getFullYear()} 拾光祝语 &middot; 用心传递每一份祝福</p>
+          <p className="footer-icp">Made with <Heart size={12} className="footer-heart-icon" /> for you</p>
+        </div>
+      </div>
+    </footer>
+
+    {showQR && <QRCodeModal url={shareUrl} onClose={() => setShowQR(false)} cardData={form} />}
+  </>
   );
 }

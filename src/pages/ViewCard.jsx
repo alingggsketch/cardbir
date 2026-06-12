@@ -329,7 +329,7 @@ export default function ViewCard() {
           {/* Footer */}
           <footer className="card-footer">
             <p>来自 {cardData.from} 的生日祝福</p>
-            <Heart size={16} style={{ color: themeColor }} />
+            <Heart size={16} className="footer-heart" style={{ color: themeColor }} />
           </footer>
         </div>
       )}
