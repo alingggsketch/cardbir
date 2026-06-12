@@ -1,4 +1,5 @@
-const UPLOAD_URL = 'https://cardbir-upload.xzihan1007.workers.dev';
+const REPO = 'Khao-s/cardimg';
+const TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 export async function uploadFile(file) {
   const data = await new Promise((resolve, reject) => {
@@ -8,18 +9,29 @@ export async function uploadFile(file) {
     reader.readAsDataURL(file);
   });
 
-  const res = await fetch(UPLOAD_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ filename: file.name, mimeType: file.type, data }),
+  const ext = file.name.split('.').pop() || file.type.split('/')[1] || 'bin';
+  const key = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const path = `media/${key}`;
+
+  const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json',
+      'User-Agent': 'cardbir-app',
+    },
+    body: JSON.stringify({
+      message: `upload ${key}`,
+      content: data,
+    }),
   });
 
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: '上传失败' }));
-    throw new Error(err.error || '上传失败');
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || '上传失败');
   }
 
-  return res.json();
+  return { key, name: file.name };
 }
 
 export function getMediaUrl(key) {
