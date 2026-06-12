@@ -31,7 +31,7 @@ export default function AudioRecorder({ audio, onChange }) {
         onChange({ key: result.key });
       } catch (err) {
         console.error('语音上传失败:', err);
-        alert('语音上传失败，请重试');
+        alert(err.message === 'NO_TOKEN' ? '请先在页面顶部配置 GitHub Token' : '语音上传失败，请重试');
       }
       setUploading(false);
     });
@@ -50,7 +50,7 @@ export default function AudioRecorder({ audio, onChange }) {
       onChange({ key: result.key });
     } catch (err) {
       console.error('音频上传失败:', err);
-      alert('音频上传失败，请重试');
+      alert(err.message === 'NO_TOKEN' ? '请先在页面顶部配置 GitHub Token' : '音频上传失败，请重试');
     }
     setUploading(false);
     e.target.value = '';

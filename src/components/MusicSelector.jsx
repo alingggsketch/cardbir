@@ -21,7 +21,7 @@ export default function MusicSelector({ music, onChange }) {
       onChange({ type: 'custom', key: result.key, name: file.name });
     } catch (err) {
       console.error('音乐上传失败:', err);
-      alert('音乐上传失败，请重试');
+      alert(err.message === 'NO_TOKEN' ? '请先在页面顶部配置 GitHub Token' : '音乐上传失败，请重试');
     }
     setUploading(false);
     e.target.value = '';

@@ -19,6 +19,10 @@ export default function ImageUploader({ images, onChange }) {
         newImages.push({ key: result.key, caption: '' });
       } catch (err) {
         console.error('图片上传失败:', err);
+        if (err.message === 'NO_TOKEN') {
+          alert('请先在页面顶部配置 GitHub Token');
+          break;
+        }
       }
     }
     onChange([...images, ...newImages]);

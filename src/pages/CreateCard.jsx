@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Gift, Sparkles, Calendar, User, Heart, Music, Mic, ImagePlus, ExternalLink, Mail, MessageCircle, Star, Shield, Zap } from 'lucide-react';
+import { Gift, Sparkles, Calendar, User, Heart, Music, Mic, ImagePlus, ExternalLink, Mail, MessageCircle, Star, Shield, Zap, Key, Check } from 'lucide-react';
 import ImageUploader from '../components/ImageUploader';
 import AudioRecorder from '../components/AudioRecorder';
 import MusicSelector from '../components/MusicSelector';
@@ -7,6 +7,7 @@ import DatePicker from '../components/DatePicker';
 import ThemePicker, { getThemeById } from '../components/ThemePicker';
 import QRCodeModal from '../components/QRCodeModal';
 import { getShareUrl } from '../utils/storage';
+import { getToken, setToken } from '../utils/upload';
 
 export default function CreateCard() {
   const [form, setForm] = useState({
@@ -22,6 +23,16 @@ export default function CreateCard() {
   const [showQR, setShowQR] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [tokenInput, setTokenInput] = useState('');
+  const [hasToken, setHasToken] = useState(() => !!getToken());
+
+  const handleSaveToken = () => {
+    const t = tokenInput.trim();
+    if (t) {
+      setToken(t);
+      setHasToken(true);
+    }
+  };
 
   const updateField = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -74,6 +85,35 @@ export default function CreateCard() {
         <h1>生日贺卡生成器</h1>
         <p className="header-desc">填写信息，生成专属生日祝福贺卡</p>
       </header>
+
+      {!hasToken && (
+        <div className="token-setup">
+          <div className="token-setup-icon"><Key size={20} /></div>
+          <div className="token-setup-content">
+            <p className="token-setup-title">首次使用需配置上传密钥</p>
+            <p className="token-setup-desc">需要一个 GitHub Token 来上传图片/音频</p>
+            <div className="token-input-row">
+              <input
+                type="password"
+                placeholder="粘贴 GitHub Token (ghp_...)"
+                value={tokenInput}
+                onChange={(e) => setTokenInput(e.target.value)}
+              />
+              <button onClick={handleSaveToken} disabled={!tokenInput.trim()}>
+                <Check size={16} /> 保存
+              </button>
+            </div>
+            <a
+              className="token-help-link"
+              href="https://github.com/settings/tokens/new?scopes=public_repo&description=cardbir-upload"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              点此生成 Token（勾选 public_repo）
+            </a>
+          </div>
+        </div>
+      )}
 
       <main className="create-form">
         {/* Basic Info */}

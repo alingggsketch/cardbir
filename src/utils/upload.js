@@ -1,7 +1,20 @@
 const REPO = 'Khao-s/cardimg';
-const TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+const TOKEN_KEY = 'gh_upload_token';
+
+export function getToken() {
+  return localStorage.getItem(TOKEN_KEY) || '';
+}
+
+export function setToken(token) {
+  localStorage.setItem(TOKEN_KEY, token);
+}
 
 export async function uploadFile(file) {
+  const token = getToken();
+  if (!token) {
+    throw new Error('NO_TOKEN');
+  }
+
   const data = await new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result.split(',')[1]);
@@ -16,7 +29,7 @@ export async function uploadFile(file) {
   const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
     method: 'PUT',
     headers: {
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
       'User-Agent': 'cardbir-app',
     },
