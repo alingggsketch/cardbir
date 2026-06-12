@@ -12,7 +12,23 @@
       "Bash(vercel *)",
       "Bash(node -e ' *)",
       "Bash(pkill -f \"vercel logs\")",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git fetch *)",
+      "Bash(curl *)",
+      "Bash(npm run *)",
+      "Bash(git subtree *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(grep *)",
+      "Bash(node -e \"const {execSync} = require\\('child_process'\\); const out = execSync\\('npx vite build --base=/cardbir/ 2>&1', {encoding: 'utf8'}\\); console.log\\(out\\)\")",
+      "Bash(npx wrangler *)",
+      "Bash(git config *)",
+      "Bash(GIT_CONFIG_COUNT=2 GIT_CONFIG_KEY_0=http.proxy GIT_CONFIG_VALUE_0=\"\" GIT_CONFIG_KEY_1=https.proxy GIT_CONFIG_VALUE_1=\"\" git fetch origin gh-pages)",
+      "Bash(cat .vercel/project.json)",
+      "Bash(cat .vercel/README.txt)",
+      "Bash(gh auth *)",
+      "Bash(GIT_CONFIG_COUNT=2 GIT_CONFIG_KEY_0=http.proxy GIT_CONFIG_VALUE_0=\"\" GIT_CONFIG_KEY_1=https.proxy GIT_CONFIG_VALUE_1=\"\" git remote add new-origin https://github.com/alingggsketch/cardbir.git)",
+      "Bash(GIT_CONFIG_COUNT=2 GIT_CONFIG_KEY_0=http.proxy GIT_CONFIG_VALUE_0=\"\" GIT_CONFIG_KEY_1=https.proxy GIT_CONFIG_VALUE_1=\"\" git push new-origin master:main)"
     ]
   }
 }
