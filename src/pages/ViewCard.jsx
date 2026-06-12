@@ -263,13 +263,6 @@ export default function ViewCard() {
   const handleCountdownFinish = useCallback(() => {
     setShowCountdown(false);
     setShowContent(true);
-    setTimeout(() => {
-      if (bgMusicRef.current) {
-        bgMusicRef.current.play().then(() => {
-          setMusicPlaying(true);
-        }).catch(() => {});
-      }
-    }, 500);
   }, []);
 
   const toggleMusic = () => {
@@ -327,13 +320,26 @@ export default function ViewCard() {
 
   return (
     <div className="view-page" style={{ '--theme': themeColor }}>
+      {/* Pre-load audio element so it's ready when user taps verify */}
+      {showMusic && (
+        <audio ref={bgMusicRef} src={bgMusicSrc} loop preload="auto" />
+      )}
+
       {!birthdayVerified && (
         <BirthdayGate
           cardDate={cardData.date}
           recipientName={cardData.to}
           themeImage={cardData.themeImage}
           themeColor={themeColor}
-          onVerified={() => setBirthdayVerified(true)}
+          onVerified={() => {
+            setBirthdayVerified(true);
+            // Play music within user gesture so browser allows it
+            if (bgMusicRef.current) {
+              bgMusicRef.current.play().then(() => {
+                setMusicPlaying(true);
+              }).catch(() => {});
+            }
+          }}
         />
       )}
 
@@ -343,10 +349,6 @@ export default function ViewCard() {
 
       {birthdayVerified && showContent && (
         <div className="card-content">
-          {/* Background music */}
-          {showMusic && (
-            <audio ref={bgMusicRef} src={bgMusicSrc} loop />
-          )}
           {showMusic && (
             <button className="music-toggle-btn" onClick={toggleMusic} style={{ backgroundColor: themeColor }}>
               {musicPlaying ? <VolumeX size={20} /> : <Music size={20} />}

@@ -90,12 +90,12 @@ export default function CreateCard() {
         <div className="token-setup">
           <div className="token-setup-icon"><Key size={20} /></div>
           <div className="token-setup-content">
-            <p className="token-setup-title">首次使用需配置上传密钥</p>
-            <p className="token-setup-desc">需要一个 GitHub Token 来上传图片/音频</p>
+            <p className="token-setup-title">首次使用需配置密钥</p>
+            <p className="token-setup-desc">需要配置密钥才能上传图片/音频</p>
             <div className="token-input-row">
               <input
                 type="password"
-                placeholder="粘贴 GitHub Token (ghp_...)"
+                placeholder="粘贴密钥"
                 value={tokenInput}
                 onChange={(e) => setTokenInput(e.target.value)}
               />
@@ -103,14 +103,6 @@ export default function CreateCard() {
                 <Check size={16} /> 保存
               </button>
             </div>
-            <a
-              className="token-help-link"
-              href="https://github.com/settings/tokens/new?scopes=public_repo&description=cardbir-upload"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              点此生成 Token（勾选 public_repo）
-            </a>
           </div>
         </div>
       )}
