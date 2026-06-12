@@ -28,7 +28,7 @@ export default function MusicSelector({ music, onChange }) {
   };
 
   const handleBuiltin = () => {
-    onChange({ type: 'default', url: '/shengri.mp3', name: '生日快乐' });
+    onChange({ type: 'default', url: '/cardbir/shengri.mp3', name: '生日快乐' });
   };
 
   const togglePlay = () => {
