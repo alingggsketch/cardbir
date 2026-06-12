@@ -11,7 +11,8 @@
       "Bash(npm i *)",
       "Bash(vercel *)",
       "Bash(node -e ' *)",
-      "Bash(pkill -f \"vercel logs\")"
+      "Bash(pkill -f \"vercel logs\")",
+      "Bash(git push *)"
     ]
   }
 }

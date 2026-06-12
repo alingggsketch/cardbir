@@ -2,6 +2,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { X, Copy, Check, Link, Download } from 'lucide-react';
 import { useState, useMemo, useRef } from 'react';
 import html2canvas from 'html2canvas';
+import cardBg from '../assets/card.jpg?url';
 
 export default function QRCodeModal({ url, onClose, cardData }) {
   const [copied, setCopied] = useState(false);
@@ -63,7 +64,7 @@ export default function QRCodeModal({ url, onClose, cardData }) {
 
         {/* Greeting Card with QR Code */}
         <div className="greeting-card-container" ref={cardRef}>
-          <div className="greeting-card" style={{ '--theme-color': cardData?.themeColor || '#ff6b9d' }}>
+          <div className="greeting-card" style={{ '--theme-color': cardData?.themeColor || '#ff6b9d', backgroundImage: `url(${cardBg})` }}>
             <div className="card-header">
               <div className="card-decorations">
                 <span className="decoration">🎈</span>

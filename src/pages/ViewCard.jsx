@@ -1,7 +1,76 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { getCardFromUrl } from '../utils/storage';
 import { getMediaUrl } from '../utils/upload';
-import { Heart, Music, Play, Volume2, VolumeX } from 'lucide-react';
+import { Heart, Music, Play, Volume2, VolumeX, Gift } from 'lucide-react';
+import { getThemeById } from '../components/ThemePicker';
+import cardBg from '../assets/card.jpg?url';
+
+// --- Birthday Gate Component ---
+function BirthdayGate({ cardDate, recipientName, themeImage, themeColor, onVerified }) {
+  const [input, setInput] = useState('');
+  const [error, setError] = useState(false);
+  const inputRef = useRef(null);
+  const theme = getThemeById(themeImage);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const expectedMMDD = cardDate
+    ? cardDate.split('-').slice(1).join('')
+    : '';
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (input === expectedMMDD) {
+      onVerified();
+    } else {
+      setError(true);
+      setInput('');
+      setTimeout(() => setError(false), 2000);
+    }
+  };
+
+  return (
+    <div className="birthday-gate" style={{ backgroundImage: `url(${theme.img})` }}>
+      <div className="gate-overlay" />
+      <div className="gate-content">
+        <h1 className="gate-title" style={{ textShadow: `0 2px 20px ${themeColor}80` }}>
+          生日快乐
+        </h1>
+        <p className="gate-name" style={{ color: themeColor }}>
+          {recipientName}
+        </p>
+        <form onSubmit={handleSubmit} className="gate-form">
+          <input
+            ref={inputRef}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            maxLength={4}
+            className={`gate-input ${error ? 'gate-input-error' : ''}`}
+            placeholder="输入生日(4位数)"
+            value={input}
+            onChange={(e) => {
+              const val = e.target.value.replace(/\D/g, '').slice(0, 4);
+              setInput(val);
+              setError(false);
+            }}
+          />
+          <button
+            type="submit"
+            className="gate-btn"
+            style={{ backgroundColor: themeColor }}
+            disabled={input.length !== 4}
+          >
+            <span>打开贺卡</span>
+          </button>
+        </form>
+        {error && <p className="gate-error">生日不对哦，再试试吧~</p>}
+      </div>
+    </div>
+  );
+}
 
 // --- Countdown Animation Component ---
 function CountdownOverlay({ onFinish, themeColor }) {
@@ -176,6 +245,7 @@ function AudioPlayer({ src, themeColor }) {
 // --- Main ViewCard Component ---
 export default function ViewCard() {
   const [cardData, setCardData] = useState(null);
+  const [birthdayVerified, setBirthdayVerified] = useState(false);
   const [showCountdown, setShowCountdown] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [error, setError] = useState(false);
@@ -257,12 +327,22 @@ export default function ViewCard() {
     : null;
 
   return (
-    <div className="view-page" style={{ '--theme': themeColor }}>
-      {showCountdown && (
+    <div className="view-page" style={{ '--theme': themeColor, backgroundImage: `url(${cardBg})` }}>
+      {!birthdayVerified && (
+        <BirthdayGate
+          cardDate={cardData.date}
+          recipientName={cardData.to}
+          themeImage={cardData.themeImage}
+          themeColor={themeColor}
+          onVerified={() => setBirthdayVerified(true)}
+        />
+      )}
+
+      {birthdayVerified && showCountdown && (
         <CountdownOverlay onFinish={handleCountdownFinish} themeColor={themeColor} />
       )}
 
-      {showContent && (
+      {birthdayVerified && showContent && (
         <div className="card-content">
           {/* Background music */}
           {showMusic && (

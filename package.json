@@ -7,6 +7,7 @@
     "dev": "vite",
     "dev:api": "vercel dev --listen 3000",
     "build": "vite build",
+    "build:gh": "vite build --base=/cardbir/",
     "lint": "eslint .",
     "preview": "vite preview"
   },

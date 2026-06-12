@@ -4,7 +4,7 @@ import ImageUploader from '../components/ImageUploader';
 import AudioRecorder from '../components/AudioRecorder';
 import MusicSelector from '../components/MusicSelector';
 import DatePicker from '../components/DatePicker';
-import ColorPicker from '../components/ColorPicker';
+import ThemePicker, { getThemeById } from '../components/ThemePicker';
 import QRCodeModal from '../components/QRCodeModal';
 import { getShareUrl } from '../utils/storage';
 
@@ -14,7 +14,7 @@ export default function CreateCard() {
     from: '',
     date: '',
     message: '',
-    themeColor: '#ff6b9d',
+    themeImage: 'one',
   });
   const [images, setImages] = useState([]);
   const [audio, setAudio] = useState(null);
@@ -27,6 +27,7 @@ export default function CreateCard() {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
+  const theme = getThemeById(form.themeImage);
   const isFormValid = form.to.trim() && form.from.trim() && form.date && form.message.trim();
 
   // With CDN storage, URL only contains keys (~30 bytes each), not base64 data
@@ -46,6 +47,7 @@ export default function CreateCard() {
 
     const cardData = {
       ...form,
+      themeColor: theme.color,
       images: images.map((img) => ({ key: img.key, caption: img.caption })),
       audio: audio?.key ? { key: audio.key } : null,
       music: music?.type === 'default'
@@ -136,15 +138,15 @@ export default function CreateCard() {
           <p className="char-count">{form.message.length}/500</p>
         </section>
 
-        {/* Theme Color */}
+        {/* Theme */}
         <section className="form-section">
           <div className="section-header">
-            <div className="color-dot" style={{ backgroundColor: form.themeColor }} />
-            <h2>主题颜色</h2>
+            <div className="color-dot" style={{ backgroundColor: theme.color }} />
+            <h2>主题风格</h2>
           </div>
-          <ColorPicker
-            value={form.themeColor}
-            onChange={(c) => updateField('themeColor', c)}
+          <ThemePicker
+            value={form.themeImage}
+            onChange={(id) => updateField('themeImage', id)}
           />
         </section>
 

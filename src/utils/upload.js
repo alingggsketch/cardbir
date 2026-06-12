@@ -1,3 +1,5 @@
+const UPLOAD_URL = 'https://cardbir-upload.xzihan1007.workers.dev';
+
 export async function uploadFile(file) {
   const data = await new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -6,7 +8,7 @@ export async function uploadFile(file) {
     reader.readAsDataURL(file);
   });
 
-  const res = await fetch('/api/upload', {
+  const res = await fetch(UPLOAD_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ filename: file.name, mimeType: file.type, data }),
