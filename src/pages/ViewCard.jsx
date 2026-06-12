@@ -3,7 +3,6 @@ import { getCardFromUrl } from '../utils/storage';
 import { getMediaUrl } from '../utils/upload';
 import { Heart, Music, Play, Volume2, VolumeX, Gift } from 'lucide-react';
 import { getThemeById } from '../components/ThemePicker';
-import cardBg from '../assets/card.jpg?url';
 
 // --- Birthday Gate Component ---
 function BirthdayGate({ cardDate, recipientName, themeImage, themeColor, onVerified }) {
@@ -327,7 +326,7 @@ export default function ViewCard() {
     : null;
 
   return (
-    <div className="view-page" style={{ '--theme': themeColor, backgroundImage: `url(${cardBg})` }}>
+    <div className="view-page" style={{ '--theme': themeColor }}>
       {!birthdayVerified && (
         <BirthdayGate
           cardDate={cardData.date}
