@@ -2135,3 +2135,86 @@ textarea {
   color: #b45309;
   text-decoration: underline;
 }
+
+.token-configured {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.token-configured .token-setup-icon {
+  background: #10b981;
+}
+
+.token-configured .token-setup-title {
+  color: #166534;
+}
+
+.token-configured .token-setup-desc {
+  color: #15803d;
+}
+
+.token-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  background: white;
+  color: #166534;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.token-reset-btn:hover {
+  background: #dcfce7;
+  border-color: #4ade80;
+}
+
+.token-reset {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.token-reset .token-setup-icon {
+  background: #3b82f6;
+}
+
+.token-reset .token-setup-title {
+  color: #1e40af;
+}
+
+.token-reset .token-setup-desc {
+  color: #2563eb;
+}
+
+.token-reset .token-input-row input {
+  border-color: #93c5fd;
+}
+
+.token-reset .token-input-row input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.token-reset .token-input-row button {
+  background: #3b82f6;
+}
+
+.token-reset-cancel {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.token-reset-cancel:hover {
+  color: #ef4444;
+}

@@ -7,7 +7,7 @@ import DatePicker from '../components/DatePicker';
 import ThemePicker, { getThemeById } from '../components/ThemePicker';
 import QRCodeModal from '../components/QRCodeModal';
 import { getShareUrl } from '../utils/storage';
-import { getToken, setToken } from '../utils/upload';
+import { getToken, setToken, clearToken } from '../utils/upload';
 
 export default function CreateCard() {
   const [form, setForm] = useState({
@@ -25,13 +25,23 @@ export default function CreateCard() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [tokenInput, setTokenInput] = useState('');
   const [hasToken, setHasToken] = useState(() => !!getToken());
+  const [showReset, setShowReset] = useState(false);
 
   const handleSaveToken = () => {
     const t = tokenInput.trim();
     if (t) {
       setToken(t);
       setHasToken(true);
+      setShowReset(false);
+      setTokenInput('');
     }
+  };
+
+  const handleResetToken = () => {
+    clearToken();
+    setHasToken(false);
+    setTokenInput('');
+    setShowReset(false);
   };
 
   const updateField = (key, value) => {
@@ -103,6 +113,43 @@ export default function CreateCard() {
                 <Check size={16} /> 保存
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {hasToken && !showReset && (
+        <div className="token-setup token-configured">
+          <div className="token-setup-icon"><Shield size={20} /></div>
+          <div className="token-setup-content">
+            <p className="token-setup-title">密钥已配置</p>
+            <p className="token-setup-desc">图片/音频上传功能已就绪</p>
+            <button className="token-reset-btn" onClick={() => setShowReset(true)}>
+              <Key size={14} /> 重置密钥
+            </button>
+          </div>
+        </div>
+      )}
+
+      {hasToken && showReset && (
+        <div className="token-setup token-reset">
+          <div className="token-setup-icon"><Key size={20} /></div>
+          <div className="token-setup-content">
+            <p className="token-setup-title">重置密钥</p>
+            <p className="token-setup-desc">输入新密钥替换当前密钥</p>
+            <div className="token-input-row">
+              <input
+                type="password"
+                placeholder="粘贴新密钥"
+                value={tokenInput}
+                onChange={(e) => setTokenInput(e.target.value)}
+              />
+              <button onClick={handleSaveToken} disabled={!tokenInput.trim()}>
+                <Check size={16} /> 更新
+              </button>
+            </div>
+            <button className="token-reset-cancel" onClick={handleResetToken}>
+              清除密钥并退出
+            </button>
           </div>
         </div>
       )}

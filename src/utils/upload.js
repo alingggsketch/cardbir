@@ -9,6 +9,10 @@ export function setToken(token) {
   localStorage.setItem(TOKEN_KEY, token);
 }
 
+export function clearToken() {
+  localStorage.removeItem(TOKEN_KEY);
+}
+
 export async function uploadFile(file) {
   const token = getToken();
   if (!token) {
