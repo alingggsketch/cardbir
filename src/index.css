@@ -1853,6 +1853,45 @@ textarea {
 
   .modal-content {
     padding: 28px 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-overlay {
+    padding: 10px;
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+
+  .greeting-card {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: 22px;
+  }
+
+  .card-message {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .qr-wrapper {
+    padding: 12px;
+  }
+
+  .qr-wrapper svg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .url-box {
+    flex-direction: column;
+  }
+
+  .btn-copy {
+    width: 100%;
+    justify-content: center;
   }
 }
 
